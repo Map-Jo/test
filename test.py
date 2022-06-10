@@ -1,19 +1,202 @@
-import streamlit as st
+
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import plotly.express as px
+import plotly.graph_objects as go
+import streamlit as st
+from IPython import get_ipython
+
+# In[2]:
+
+
+# 윈도우 : "Malgun Gothic"
+# 맥 : "AppleGothic"
+def get_font_family():
+    """
+    시스템 환경에 따른 기본 폰트명을 반환하는 함수
+    """
+    import platform
+    system_name = platform.system()
+    # colab 사용자는 system_name이 'Linux'로 확인
+
+    if system_name == "Darwin" :
+        font_family = "AppleGothic"
+    elif system_name == "Windows":
+        font_family = "Malgun Gothic"
+    else:
+        get_ipython().system('apt-get install fonts-nanum -qq  > /dev/null')
+        get_ipython().system('fc-cache -fv')
+
+        import matplotlib as mpl
+        mpl.font_manager._rebuild()
+        findfont = mpl.font_manager.fontManager.findfont
+        mpl.font_manager.findfont = findfont
+        mpl.backends.backend_agg.findfont = findfont
+        
+        font_family = "NanumBarunGothic"
+    return font_family
+
+
+plt.style.use("seaborn-whitegrid")
+
+# 폰트설정
+plt.rc("font", family=get_font_family())
+# 마이너스폰트 설정
+plt.rc("axes", unicode_minus=False)
+
+# 그래프에 retina display 적용
+from IPython.display import set_matplotlib_formats
+
+# get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'retina'")
+
+
+# In[3]:
+
+
+df = pd.read_csv("C:\\Users\\a\\Desktop\\인구_점포_개폐업_통합_2021 (2).csv")
+
+
+# In[4]:
+
+
+object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
+for i in object_list:
+    df[i]=df[i].str.replace(',', '').astype('int64')
+
+
+# In[5]:
+
+
+df['지역']=df['지역'].str.strip()
+
+
+# In[6]:
+
+
+df_a = df[df['지역'] != '서울시 전체']
+
+
+# In[7]:
+
+
+def total_graph(gu):
+    fig, axes = plt.subplots(2, 2)
+    fig.set_size_inches((12, 12))
+    plt.subplots_adjust(wspace = 0.15, hspace = 0.15)
+
+    #figure 전체 제목
+    fig.suptitle( gu , fontsize=15)
+
+    #분기별 전체 점포수 변화 선 그래프
+    df_x=df[df['지역']==gu]
+    axes[0, 0].plot(df_x['분기'],df_x['전체 점포수'], color='blue', marker='o')
+    axes[0, 0].set_xlabel('분기', fontsize = 11)
+    axes[0, 0].set_ylabel('전체 점포수', fontsize = 11)
+    axes[0, 0].set_title('분기별 전체점포수', fontsize = 12)
+
+    #분기별 개폐업률 막대 그래프 비교
+    l1=axes[0,1].bar(df_x['분기'],df_x['개업률'],width=0.5,alpha=0.5, color='red')
+    l2=axes[0,1].bar(df_x['분기'],df_x['폐업률'],width=0.5,alpha=0.5, color='blue')
+    axes[0,1].legend([l1,l2],['개업률','폐업률'])
+    axes[0, 1].set_xlabel('분기', fontsize = 11)
+    axes[0, 1].set_ylabel('비율 %단위', fontsize = 11)
+    axes[0, 1].set_title('분기별 개/폐업률\n 빨강:개업률 / 파랑:폐업률', fontsize = 12)
+
+    #길단위 인구수
+    axes[1, 0].plot(df_x['분기'],df_x['길단위 유동인구'], color='red', marker='o')
+    axes[1, 0].set_xlabel('분기', fontsize = 11)
+    axes[1, 0].set_ylabel('길단위 유동인구', fontsize = 11)
+    axes[1, 0].set_title('분기별 길단위 유동인구', fontsize = 12)
+
+    #주거, 직장 인구
+    bar_width = 0.5
+    index = np.arange(1)
+    label=['']
+    l3=axes[1,1].bar(index,df_x['주거 인구'],width=0.5,alpha=0.3, color='green')
+    l4=axes[1,1].bar(index+bar_width,df_x['직장 인구'],width=0.5,alpha=0.3, color='blue')
+    axes[1,1].legend([l3,l4],['주거인구','직장인구'])
+    axes[1, 1].set_xlabel('인구 종류', fontsize = 11)
+    axes[1, 1].set_ylabel('', fontsize = 11)
+    axes[1, 1].set_title('주거/직장 인구수', fontsize = 12)
+
+
+    plt.tight_layout()
+    return plt.show()
+
+
+# In[8]:
+
+
+# gu=input("원하시는 구를 입력해주세요: ")
+# total_graph(gu)
+
+
+# In[ ]:
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
+st.title("어느 지역에 창업을 계획중이신가요?")
+input_reg = st.text_input(label="지역명", value="gu")
+
+# checkbox = st.checkbox('agree')
+# btn_clicked = st.button("Confirm", key='confirm_btn', disabled=(checkbox is False))
+
+
+if input_reg == "종로구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "중구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "용산구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "성동구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "광진구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "동대문구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "중랑구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "성북구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "강북구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "도봉구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "노원구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "은평구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "서대문구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "마포구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "양천구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "강서구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "구로구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "금천구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "영등포구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "동작구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "관악구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "서초구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "강남구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "송파구":
+    st.pyplot(total_graph(input_reg))
+elif input_reg == "강동구":
+    st.pyplot(total_graph(input_reg))
 
 
 
-st.write('Do you need recommend?')
-
-url = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
 
-@st.cache
-def load_data(nrows):
-      data = pd.read_csv(url, nrows=nrows)
-      lowercase = lambda x: str(x).lower()
-      data.rename(lowercase, axis='columns', inplace=True)
-      data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-      return data
+
+
+st.dataframe(df)
