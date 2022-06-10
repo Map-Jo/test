@@ -2,7 +2,6 @@ pandas
 numpy
 streamlit
 plotly.express
-plotly.graph_objects
 IPython
 streamlit==0.75.0
 matplotlib.pyplot
