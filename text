@@ -1,7 +1,7 @@
 pandas
 numpy
+ matplotlib.pyplot
+plotly.express
+plotly.graph_objects
 streamlit
-finance-datareader
-plotly
-seaborn
-matplotlib
+from IPython import get_ipython
