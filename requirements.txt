@@ -4,4 +4,4 @@ matplotlib.pyplot
 plotly.express
 plotly.graph_objects
 streamlit
-from IPython import get_ipython
+IPython
