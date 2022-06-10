@@ -54,7 +54,7 @@ from IPython.display import set_matplotlib_formats
 # In[3]:
 
 
-df = pd.read_csv("C:\\Users\\a\\Desktop\\인구_점포_개폐업_통합_2021 (2).csv")
+df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
 
 # In[4]:
