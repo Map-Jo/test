@@ -5,4 +5,4 @@ plotly.express
 plotly.graph_objects
 streamlit
 IPython
-"streamlit==0.75.0"
+streamlit=="0.75.0"
