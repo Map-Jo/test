@@ -2,10 +2,10 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
 from IPython import get_ipython
+import matplotlib.pyplot as plt
 
 def get_font_family():
 
