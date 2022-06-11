@@ -5,38 +5,6 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-def get_font_family():
-
-    import platform
-    system_name = platform.system()
-
-    if system_name == "Darwin" :
-        font_family = "AppleGothic"
-    elif system_name == "Windows":
-        font_family = "Malgun Gothic"
-    else:
-        get_ipython().system('apt-get install fonts-nanum -qq  > /dev/null')
-        get_ipython().system('fc-cache -fv')
-
-        import matplotlib as mpl
-        mpl.font_manager._rebuild()
-        findfont = mpl.font_manager.fontManager.findfont
-        mpl.font_manager.findfont = findfont
-        mpl.backends.backend_agg.findfont = findfont
-        
-        font_family = "NanumBarunGothic"
-    return font_family
-
-
-plt.style.use("seaborn-whitegrid")
-
-plt.rc("font", family=get_font_family())
-
-plt.rc("axes", unicode_minus=False)
-
-from IPython.display import set_matplotlib_formats
-
-
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
