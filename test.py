@@ -20,8 +20,8 @@ def get_font_family():
     elif system_name == "Windows":
         font_family = "Malgun Gothic"
     else:
-        get_ipython().system('# apt-get install fonts-nanum -qq  > /dev/null')
-        get_ipython().system('# fc-cache -fv')
+        get_ipython().system(apt-get install fonts-nanum -qq  > /dev/null)
+        get_ipython().system(fc-cache -fv)
         font_family = "NanumBarunGothic"
         import matplotlib as mpl
         mpl.font_manager._rebuild()
