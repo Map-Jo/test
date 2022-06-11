@@ -20,8 +20,8 @@ def get_font_family():
     elif system_name == "Windows":
         font_family = "Malgun Gothic"
     else:
-        get_ipython().system('sudo apt-get install language-pack-ko')
-        get_ipython().system('sudo apt-get install korean*')
+        get_ipython().system('# sudo apt-get install language-pack-ko')
+        get_ipython().system('# sudo apt-get install korean*')
         font_family = "NanumBarunGothic"
         import matplotlib as mpl
         mpl.font_manager._rebuild()
