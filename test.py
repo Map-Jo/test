@@ -14,7 +14,8 @@ def get_font_family():
     # colab 사용자는 system_name이 'Linux'로 확인
 
     if system_name == "Windows":
-        global font_family = "Malgun Gothic"
+        font_family = "Malgun Gothic"
+        global font_family
 
     return font_family
 
