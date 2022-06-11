@@ -15,7 +15,7 @@ def get_font_family():
 
     if system_name == "Windows":
         font_family = "Malgun Gothic"
-        global font_family
+        font_family
 
     return font_family
 
