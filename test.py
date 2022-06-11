@@ -5,8 +5,6 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-# 윈도우 : "Malgun Gothic"
-# 맥 : "AppleGothic"
 def get_font_family():
     """
     시스템 환경에 따른 기본 폰트명을 반환하는 함수
@@ -19,6 +17,17 @@ def get_font_family():
         font_family = "AppleGothic"
     elif system_name == "Windows":
         font_family = "Malgun Gothic"
+    else:
+        get_ipython().system('apt-get install fonts-nanum -qq  > /dev/null')
+        get_ipython().system('fc-cache -fv')
+
+        import matplotlib as mpl
+        mpl.font_manager._rebuild()
+        findfont = mpl.font_manager.fontManager.findfont
+        mpl.font_manager.findfont = findfont
+        mpl.backends.backend_agg.findfont = findfont
+        
+        font_family = "NanumBarunGothic"
     return font_family
 
 
