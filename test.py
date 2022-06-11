@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager,rc
 
 #폰트 경로
-font_path = "C:\\Windows\\Fonts\\H2HDRM"
+font_path = "C:\Windows\Fonts\H2HDRM"
 
 #폰트 이름 얻어오기
 font_name = font_manager.FontProperties(fname=font_path).get_name()
