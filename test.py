@@ -4,12 +4,7 @@ import numpy as np
 import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
-import IPython as ipy
-from IPython.terminal.interactiveshell import TerminalInteractiveShell
 
-shell = TerminalInteractiveShell.instance()
-shell.define_macro('foo', """a,b=10,20""")
-ipy.embed(display_banner=False)
 # 윈도우 : "Malgun Gothic"
 # 맥 : "AppleGothic"
 def get_font_family():
@@ -25,8 +20,8 @@ def get_font_family():
     elif system_name == "Windows":
         font_family = "Malgun Gothic"
     else:
-        get_ipython().system('apt-get install fonts-nanum -qq  > /dev/null')
-        get_ipython().system('fc-cache -fv')
+        get_ipython().system('sudo apt-get install language-pack-ko')
+        get_ipython().system('sudo apt-get install korean*')
         font_family = "NanumBarunGothic"
         import matplotlib as mpl
         mpl.font_manager._rebuild()
