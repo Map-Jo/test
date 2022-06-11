@@ -14,9 +14,9 @@ def get_font_family():
     # colab 사용자는 system_name이 'Linux'로 확인
 
     if system_name == "Windows":
-        font_family = "Malgun Gothic"
+        global font_family = "Malgun Gothic"
 
-    return global font_family
+    return font_family
 
 
 plt.style.use("seaborn-whitegrid")
