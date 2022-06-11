@@ -5,14 +5,30 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-matplotlib.rcParams['font.family'] ='Malgun Gothic'
+def get_font_family():
+    """
+    시스템 환경에 따른 기본 폰트명을 반환하는 함수
+    """
+    import platform
+    system_name = platform.system()
+    # colab 사용자는 system_name이 'Linux'로 확인
 
-matplotlib.rcParams['axes.unicode_minus'] =False
 
-import warnings
-warnings.filterwarnings("ignore")
+    if system_name == "Windows":
+        font_family = "Malgun Gothic"
+
+    return font_family
 
 
+plt.style.use("seaborn-whitegrid")
+
+# 폰트설정
+plt.rc("font", family=get_font_family())
+# 마이너스폰트 설정
+plt.rc("axes", unicode_minus=False)
+
+# 그래프에 retina display 적용
+from IPython.display import set_matplotlib_formats
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
