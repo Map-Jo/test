@@ -13,23 +13,21 @@ def get_font_family():
     system_name = platform.system()
     # colab 사용자는 system_name이 'Linux'로 확인
 
-    if system_name == "Windows":
-        
+    if system_name == "Windows":        
         font_family = "Malgun Gothic"
-        font_family
-        global font_family
+
     return font_family
 
 
-plt.style.use("seaborn-whitegrid")
-# 폰트설정
-plt.rc("font", family=get_font_family())
+# plt.style.use("seaborn-whitegrid")
+# # 폰트설정
+# plt.rc("font", family=get_font_family())
 
-# 마이너스폰트 설정
-plt.rc("axes", unicode_minus=False)
+# # 마이너스폰트 설정
+# plt.rc("axes", unicode_minus=False)
 
-# 그래프에 retina display 적용
-from IPython.display import set_matplotlib_formats
+# # 그래프에 retina display 적용
+# from IPython.display import set_matplotlib_formats
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
