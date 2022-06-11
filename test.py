@@ -19,7 +19,7 @@ def get_font_family():
     return font_family
 
 
-# plt.style.use("seaborn-whitegrid")
+plt.style.use("seaborn-whitegrid")
 # # 폰트설정
 # plt.rc("font", family=get_font_family())
 
