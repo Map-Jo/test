@@ -5,23 +5,37 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-def get_font_family():
-    """
-    시스템 환경에 따른 기본 폰트명을 반환하는 함수
-    """
-    import platform
-    system_name = platform.system()
-    # colab 사용자는 system_name이 'Linux'로 확인
 
-    if system_name == "Windows":        
-        font_family = "Malgun Gothic"
+#한글 폰트 사용
+from matplotlib import font_manager,rc
 
-    return font_family
+#폰트 경로
+font_path = "C:\\Windows\\Fonts\\H2HDRM"
+
+#폰트 이름 얻어오기
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+
+#font 설정
+matplotlib.rc('font',family=font_name)
 
 
-plt.style.use("seaborn-whitegrid")
-# # 폰트설정
-plt.rc("font", family= global get_font_family())
+# def get_font_family():
+#     """
+#     시스템 환경에 따른 기본 폰트명을 반환하는 함수
+#     """
+#     import platform
+#     system_name = platform.system()
+#     # colab 사용자는 system_name이 'Linux'로 확인
+
+#     if system_name == "Windows":        
+#         font_family = "Malgun Gothic"
+
+#     return font_family
+
+
+# plt.style.use("seaborn-whitegrid")
+# # # 폰트설정
+# plt.rc("font", family= get_font_family())
 
 # # 마이너스폰트 설정
 plt.rc("axes", unicode_minus=False)
