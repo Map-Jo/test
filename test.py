@@ -5,24 +5,33 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-
-def get_font_family():
-    """
-    시스템 환경에 따른 기본 폰트명을 반환하는 함수
-    """
-    import platform
-    if platform.system() == 'Windows': #윈도우
-        plt.rc('font', family='Malgun Gothic') 
-
-    return font_family
+#matplotlib 패키지 한글 깨짐 처리 시작
+import matplotlib as mpl
+mpl.rc('font', family='Malgun Gothic') #윈도우, 구글 콜랩
+#mpl.rc('font', family='AppleGothic') #맥
+mpl.rcParams['axes.unicode_minus'] = False #한글 폰트 사용시 마이너스 폰트 깨짐 해결
+#matplotlib 패키지 한글 깨짐 처리 끝
 
 
-plt.style.use("seaborn-whitegrid")
-# # 폰트설정
-# plt.rc("font", family= get_font_family())
 
-# 마이너스폰트 설정
-plt.rc("axes", unicode_minus=False)
+
+# def get_font_family():
+#     """
+#     시스템 환경에 따른 기본 폰트명을 반환하는 함수
+#     """
+#     import platform
+#     if platform.system() == 'Windows': #윈도우
+#         plt.rc('font', family='Malgun Gothic') 
+
+#     return font_family
+
+
+# plt.style.use("seaborn-whitegrid")
+# # # 폰트설정
+# # plt.rc("font", family= get_font_family())
+
+# # 마이너스폰트 설정
+# plt.rc("axes", unicode_minus=False)
 
 # # # 그래프에 retina display 적용
 from IPython.display import set_matplotlib_formats
