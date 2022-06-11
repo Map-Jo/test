@@ -21,11 +21,11 @@ def get_font_family():
 
 plt.style.use("seaborn-whitegrid")
 
-# 폰트설정
-plt.rc("font", family=get_font_family())
+
 # 마이너스폰트 설정
 plt.rc("axes", unicode_minus=False)
-
+# 폰트설정
+plt.rc("font", family=get_font_family())
 # 그래프에 retina display 적용
 from IPython.display import set_matplotlib_formats
 
