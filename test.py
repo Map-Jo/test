@@ -5,10 +5,9 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-from matplotlib import font_manager, rc
-font_path = "C:/Windows/Fonts/malgunbd"
-font = font_manager.FontProperties(fname=font_path).get_name()
-rc('font', family=font)
+matplotlib.rcParams['font.family'] ='Malgun Gothic'
+
+matplotlib.rcParams['axes.unicode_minus'] =False
 
 import warnings
 warnings.filterwarnings("ignore")
