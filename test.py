@@ -21,7 +21,7 @@ def get_font_family():
 
 plt.style.use("seaborn-whitegrid")
 # # 폰트설정
-plt.rc("font", global family=get_font_family())
+plt.rc("font", family= global get_font_family())
 
 # # 마이너스폰트 설정
 plt.rc("axes", unicode_minus=False)
