@@ -32,7 +32,6 @@ plt.rc("axes", unicode_minus=False)
 # 그래프에 retina display 적용
 from IPython.display import set_matplotlib_formats
 
-%config InlineBackend.figure_format = 'retina'
 
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
