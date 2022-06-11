@@ -1,7 +1,5 @@
 pandas
 numpy
 streamlit
-plotly.express
-IPython
-streamlit==0.75.0
-matplotlib.pyplot
+get_ipython
+matplotlib
