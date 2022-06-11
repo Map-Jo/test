@@ -19,17 +19,6 @@ def get_font_family():
         font_family = "AppleGothic"
     elif system_name == "Windows":
         font_family = "Malgun Gothic"
-    else:
-        !apt-get install fonts-nanum -qq  > /dev/null
-        !fc-cache -fv
-
-        import matplotlib as mpl
-        mpl.font_manager._rebuild()
-        findfont = mpl.font_manager.fontManager.findfont
-        mpl.font_manager.findfont = findfont
-        mpl.backends.backend_agg.findfont = findfont
-        
-        font_family = "NanumBarunGothic"
     return font_family
 
 
