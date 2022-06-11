@@ -5,13 +5,10 @@ import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
 
-import matplotlib
 from matplotlib import font_manager, rc
-import platform
-if platform.system()=="Windows":
-    font_name=font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
-    rc('font', family=font_name)
-matplotlib.rcParams['axes.unicode_minus']=False
+font_path = "C:/Windows/Fonts/malgunbd"
+font = font_manager.FontProperties(fname=font_path).get_name()
+rc('font', family=font)
 
 import warnings
 warnings.filterwarnings("ignore")
