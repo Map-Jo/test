@@ -9,7 +9,7 @@ def get_font_family():
     """
     시스템 환경에 따른 기본 폰트명을 반환하는 함수
     """
-    global get_font_family()
+    global get_font_family
     import platform
     system_name = platform.system()
     # colab 사용자는 system_name이 'Linux'로 확인
