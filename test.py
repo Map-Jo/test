@@ -7,40 +7,43 @@ import matplotlib.pyplot as plt
 
 # 윈도우 : "Malgun Gothic"
 # 맥 : "AppleGothic"
-# def get_font_family():
-#     """
-#     시스템 환경에 따른 기본 폰트명을 반환하는 함수
-#     """
-#     import platform
-#     system_name = platform.system()
-#     # colab 사용자는 system_name이 'Linux'로 확인
+def get_font_family():
+    """
+    시스템 환경에 따른 기본 폰트명을 반환하는 함수
+    """
+    import platform
+    system_name = platform.system()
+    # colab 사용자는 system_name이 'Linux'로 확인
 
-#     if system_name == "Darwin" :
-#         font_family = "AppleGothic"
-#     elif system_name == "Windows":
-#         font_family = "Malgun Gothic"
-#     else:
-#         get_ipython().system('apt-get install fonts-nanum -qq  > /dev/null')
-#         get_ipython().system('fc-cache -fv')
-#         font_family = "NanumBarunGothic"
-#         import matplotlib as mpl
-#         mpl.font_manager._rebuild()
-#         findfont = mpl.font_manager.fontManager.findfont
-#         mpl.font_manager.findfont = findfont
-#         mpl.backends.backend_agg.findfont = findfont
+    if system_name == "Darwin" :
+        font_family = "AppleGothic"
+    elif system_name == "Windows":
+        font_family = "Malgun Gothic"
+    else:
+        !apt-get install fonts-nanum -qq  > /dev/null
+        !fc-cache -fv
+
+        import matplotlib as mpl
+        mpl.font_manager._rebuild()
+        findfont = mpl.font_manager.fontManager.findfont
+        mpl.font_manager.findfont = findfont
+        mpl.backends.backend_agg.findfont = findfont
         
-#     return font_family
+        font_family = "NanumBarunGothic"
+    return font_family
 
 
-# plt.style.use("seaborn-whitegrid")
+plt.style.use("seaborn-whitegrid")
 
 # 폰트설정
-plt.rc("font", family="Malgun Gothic")
+plt.rc("font", family=get_font_family())
 # 마이너스폰트 설정
 plt.rc("axes", unicode_minus=False)
 
 # 그래프에 retina display 적용
 from IPython.display import set_matplotlib_formats
+
+%config InlineBackend.figure_format = 'retina'
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
