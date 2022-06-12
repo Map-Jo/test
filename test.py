@@ -129,5 +129,5 @@ if st.checkbox('Show raw data'):
 
 st.dataframe(a)
 st.dataframe(b)
-
+st.dataframe(c)
 
