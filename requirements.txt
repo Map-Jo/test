@@ -3,3 +3,4 @@ numpy
 streamlit
 IPython
 matplotlib
+koreanize_matplotlib
