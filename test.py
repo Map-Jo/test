@@ -124,7 +124,7 @@ if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(df)
 
-st.write(a)
+st.dataframe(a)
 
 
 
