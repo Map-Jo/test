@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import koreanize_matplotlib
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
-a = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%83%81%EA%B6%8C%EC%98%81%EC%97%AD).csv",encoding='euc-kr')
-b = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%9E%90%EC%B9%98%EA%B5%AC%EB%B3%84%20%EC%83%81%EA%B6%8C%EB%B3%80%ED%99%94%EC%A7%80%ED%91%9C).csv", encoding='euc-kr')
+b = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%83%81%EA%B6%8C%EC%98%81%EC%97%AD).csv",encoding='euc-kr')
+c = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%9E%90%EC%B9%98%EA%B5%AC%EB%B3%84%20%EC%83%81%EA%B6%8C%EB%B3%80%ED%99%94%EC%A7%80%ED%91%9C).csv", encoding='euc-kr', usecols=['상권_코드_명',"행정동_코드","시군구_코드",'엑스좌표_값','와이좌표_값'])
 a = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C_%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C_%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%8B%A0_%EC%83%81%EA%B6%8C_%EC%B6%94%EC%A0%95%EB%A7%A4%EC%B6%9C)_2021%EB%85%84.csv",encoding='euc-kr')
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
@@ -130,4 +130,59 @@ if st.checkbox('Show raw data'):
 st.dataframe(a)
 st.dataframe(b)
 st.dataframe(c)
+
+
+df = pd.read_csv("data/서울시_우리마을가게_상권분석서비스(신_상권_추정매출)_2021년.csv", encoding="cp949")
+df1 = pd.read_csv("data/서울시 우리마을가게 상권분석서비스(상권영역).csv", encoding="cp949", usecols=['상권_코드_명',"행정동_코드","시군구_코드",'엑스좌표_값','와이좌표_값'])
+df = df.merge(df1, on="상권_코드_명", how="left")
+
+
+k = pd.read_csv("data/서울시 우리마을가게 상권분석서비스(상권영역).csv", encoding="cp949", usecols=["엑스좌표_값","와이좌표_값"])
+k["엑스좌표_값"] = pd.to_numeric(k["엑스좌표_값"], errors="coerce")
+k["와이좌표_값"] = pd.to_numeric(k["와이좌표_값"], errors="coerce")
+
+k = k.dropna()
+k.index=range(len(k))
+k.tail()
+
+from pyproj import Proj, transform
+import folium
+import pyproj
+
+def project_array(coord, p1_type, p2_type):
+    """
+    좌표계 변환 함수
+     - coord: x, y 좌표 정보가 담긴 NumPy Array
+    - p1_type: 입력 좌표계 정보 ex) epsg:5181
+    - p2_type: 출력 좌표계 정보 ex) epsg:4326
+    """
+    p1 = pyproj.Proj(init=p1_type)
+    p2 = pyproj.Proj(init=p2_type)
+    fx, fy = pyproj.transform(p1, p2, coord[:, 0], coord[:, 1])
+    return np.dstack([fx, fy])[0]
+coord = np.array(k)
+coord
+
+
+p1_type = "epsg:5181"
+p2_type = "epsg:4326"
+
+# project_array() 함수 실행
+result = project_array(coord, p1_type, p2_type)
+result
+
+k["위도"] = result[:,1]
+k["경도"] = result[:,0]
+
+
+df = df.merge(k, on="엑스좌표_값", how="left")
+
+for col in df.columns :
+    dtype_name = df[col].dtypes.name
+    if dtype_name.startswith("int"):
+        df[col] = pd.to_numeric(df[col], downcast = "unsigned")
+    elif dtype_name.startswith("float"):
+        df[col] = pd.to_numeric(df[col], downcast = "float")
+    elif dtype_name == "bool":
+        df[col] = df[col].astype("int8")
 
