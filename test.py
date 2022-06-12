@@ -11,7 +11,7 @@ import pyproj
 
 import seaborn as sns
 import plotly.express as px
-import cufflinks as cf
+
 import plotly.graph_objects as go
 import json
 cf.go_offline(connected=True)
