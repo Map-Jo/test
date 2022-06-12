@@ -195,8 +195,9 @@ elif input_reg == "강동구":
 
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
+    st.text('서울시 인구·점포·개·폐업 정보')
     st.write(df)
-    st.subheader('Raw data')
+    st.text('서울시 상권 추정매출')
     st.write(a)
 
 
@@ -208,9 +209,6 @@ for i in object_list:
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.dataframe(df_a)
 
 # 전체 점포수
 plt.figure(figsize=(12, 10))
