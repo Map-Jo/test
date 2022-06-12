@@ -144,33 +144,33 @@ k = k.dropna()
 k.index=range(len(k))
 k.tail()
 
-def project_array(coord, p1_type, p2_type):
-    """
-    좌표계 변환 함수
-     - coord: x, y 좌표 정보가 담긴 NumPy Array
-    - p1_type: 입력 좌표계 정보 ex) epsg:5181
-    - p2_type: 출력 좌표계 정보 ex) epsg:4326
-    """
-    p1 = pyproj.Proj(init=p1_type)
-    p2 = pyproj.Proj(init=p2_type)
-    fx, fy = pyproj.transform(p1, p2, coord[:, 0], coord[:, 1])
-    return np.dstack([fx, fy])[0]
-coord = np.array(k)
-coord
+# def project_array(coord, p1_type, p2_type):
+#     """
+#     좌표계 변환 함수
+#      - coord: x, y 좌표 정보가 담긴 NumPy Array
+#     - p1_type: 입력 좌표계 정보 ex) epsg:5181
+#     - p2_type: 출력 좌표계 정보 ex) epsg:4326
+#     """
+#     p1 = pyproj.Proj(init=p1_type)
+#     p2 = pyproj.Proj(init=p2_type)
+#     fx, fy = pyproj.transform(p1, p2, coord[:, 0], coord[:, 1])
+#     return np.dstack([fx, fy])[0]
+# coord = np.array(k)
+# coord
 
 
-p1_type = "epsg:5181"
-p2_type = "epsg:4326"
+# p1_type = "epsg:5181"
+# p2_type = "epsg:4326"
 
-# project_array() 함수 실행
-result = project_array(coord, p1_type, p2_type)
-result
+# # project_array() 함수 실행
+# result = project_array(coord, p1_type, p2_type)
+# result
 
-k["위도"] = result[:,1]
-k["경도"] = result[:,0]
+# k["위도"] = result[:,1]
+# k["경도"] = result[:,0]
 
 
-a = a.merge(k, on="엑스좌표_값", how="left")
+# a = a.merge(k, on="엑스좌표_값", how="left")
 
 # for col in df.columns :
 #     dtype_name = df[col].dtypes.name
