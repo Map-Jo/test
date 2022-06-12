@@ -89,9 +89,9 @@ for i in object_list:
 df['지역'] = df['지역'].str.strip()
 df_a = df[df['지역'] != '서울시 전체']
 plt.figure(figsize=(12, 10))
-fig1 = sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
+sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 전체 점포수')
-st.pyplot(fig1)
+st.pyplot()
 
 
 
