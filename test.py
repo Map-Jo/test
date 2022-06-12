@@ -350,7 +350,22 @@ if analysis_type=="Sales":
     a.groupby("기준_분기_코드")[['연령대_10_매출_금액','연령대_20_매출_금액','연령대_30_매출_금액','연령대_40_매출_금액','연령대_50_매출_금액','연령대_60_이상_매출_금액']].mean().plot(kind="bar", rot=0)
     st.pyplot()
 
+df_gu_count = a[["시군구_코드_명","월요일_매출_건수","화요일_매출_건수","수요일_매출_건수","목요일_매출_건수","금요일_매출_건수","토요일_매출_건수","일요일_매출_건수"]]
+df_gu_count = df_gu_count.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출건수")
+m = pd.pivot_table(df_gu_count, index = "요일", columns="시군구_코드_명", values = "매출건수").round()
+plt.figure(figsize=(28,8))
+sns.heatmap(m, linewidths = 0.4, # 선의 굵기
+            linecolor = 'white', # 선의 색깔
 
+            annot = True,      # 실제 값 화면에 나타내기
+               cmap = 'RdYlBu_r',  # Red, Yellow, Blue 색상으로 표시
+            # 소수점 포맷팅 형태
+)
+plt.xticks(fontsize=8,rotation= 0) 
+plt.title('요일별, 지역별 매출건수 히트맵', fontsize=20)
+st.pyplot()
+    
+    
 # geo_path = pd.read_json("https://raw.githubusercontent.com/Map-Jo/test/main/seoul_municipalities_geo_simple%20(1).json")
 
 # geo_json = json.load(open(geo_path, encoding="utf-8"))
