@@ -72,8 +72,8 @@ for col in df.columns :
 
 a= a.merge(c, on="시군구_코드", how="left")
 
-a = a.dropna()
-a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])
+# a = a.dropna()
+# a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])
 
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
