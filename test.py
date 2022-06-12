@@ -172,19 +172,19 @@ k["경도"] = result[:,0]
 
 a = a.merge(k, on="엑스좌표_값", how="left")
 
-for col in df.columns :
-    dtype_name = df[col].dtypes.name
-    if dtype_name.startswith("int"):
-        df[col] = pd.to_numeric(df[col], downcast = "unsigned")
-    elif dtype_name.startswith("float"):
-        df[col] = pd.to_numeric(df[col], downcast = "float")
-    elif dtype_name == "bool":
-        df[col] = df[col].astype("int8")
+# for col in df.columns :
+#     dtype_name = df[col].dtypes.name
+#     if dtype_name.startswith("int"):
+#         df[col] = pd.to_numeric(df[col], downcast = "unsigned")
+#     elif dtype_name.startswith("float"):
+#         df[col] = pd.to_numeric(df[col], downcast = "float")
+#     elif dtype_name == "bool":
+#         df[col] = df[col].astype("int8")
 
-a= a.merge(c, on="시군구_코드", how="left")
+# a= a.merge(c, on="시군구_코드", how="left")
 
-a = a.dropna()
-a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])    
+# a = a.dropna()
+# a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])    
 
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
