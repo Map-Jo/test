@@ -314,11 +314,11 @@ if analysis_type=="Population":
     colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
     df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
     plt.xlabel('%')
-    plt.xlim(70,800)
+    plt.xlim(20,160)
     st.pyplot()
 
     df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
-    plt.ylim(70,80)
+    plt.ylim(20,160)
     st.pyplot()
 
 if analysis_type=="Sales":
