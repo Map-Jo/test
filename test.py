@@ -111,7 +111,7 @@ elif input_reg == "관악구":
     st.pyplot(total_graph(input_reg))
 elif input_reg == "서초구":
     st.pyplot(total_graph(input_reg))
-elif input_reg == "":
+elif input_reg == "종로구":
     st.pyplot(total_graph(input_reg))
 elif input_reg == "송파구":
     st.pyplot(total_graph(input_reg))
