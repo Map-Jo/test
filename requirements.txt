@@ -12,3 +12,4 @@ seaborn
 plotly
 cufflinks
 
+chart_studio
