@@ -338,13 +338,28 @@ st.pyplot()
 
 geo_path = pd.read_json("https://raw.githubusercontent.com/Map-Jo/test/main/seoul_municipalities_geo_simple%20(1).json")
 
-geo_json = json.load(open(geo_path, encoding="utf-8"))
+geo_json = st.json.load(open(geo_path, encoding="utf-8"))
 df_pop = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
-df_pop
+
 df_popular= df_pop.groupby("지역")["직장 인구"].sum().reset_index()
 df_popular['지역']=df_popular['지역'].str.strip()
-df_popular #choropleth 그리기 위해서 필요한 데이터
 
+m = folium.Map(location=[df["위도"].mean(), df["경도"].mean()], zoom_start=12)
+
+
+
+folium.Choropleth(
+    geo_data=geo_json,
+    name="choropleth",
+    data=df_popular,
+    columns=["지역","직장 인구"],
+    key_on="feature.properties.name",
+    fill_color = "YlGn",
+    fill_opacity=0.8,
+    line_opacity = 0.2,
+    legend_name="직장인구 수",
+).add_to(m)
+m
 
 
 
