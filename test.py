@@ -202,7 +202,7 @@ df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
 st.sidebar.header("Data of Seoul")
-analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation", "Sales"])
+analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation", "Sales", "Population"])
 if analysis_type=="Store":
     st.subheader("전체 점포수")
 
@@ -303,7 +303,8 @@ if analysis_type=="Correlation":
     df_pop_mar = pd.DataFrame.from_dict(pop_mar, orient='index').rename(columns={0:"상관계수"})    
     df_pop_mar.plot.barh(title="지역별 인구수와 점포수 상관관계", figsize=(12,10), rot = 0, color="orange")
     st.pyplot()
-
+    
+if analysis_type=="Population":
     # 유동인구 비율 데이터 추가
     df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
     df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
@@ -317,9 +318,9 @@ if analysis_type=="Correlation":
     plt.xlim(98,100)
     st.pyplot()
 
-df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
-plt.ylim(98,100)
-st.pyplot()
+    df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
+    plt.ylim(98,100)
+    st.pyplot()
 
 if analysis_type=="Sales":
     a.groupby("기준_분기_코드")[["월요일_매출_금액","화요일_매출_금액","수요일_매출_금액","목요일_매출_금액","금요일_매출_금액","토요일_매출_금액","일요일_매출_금액"]].mean().plot(kind="bar", rot=0)
