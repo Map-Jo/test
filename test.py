@@ -204,13 +204,11 @@ df_a = df_c[df_c['지역'] != '서울시 전체']
 st.sidebar.header("사이드바 메뉴")
 st.sidebar.selectbox("메뉴를 선택하세요.", ["데이터", "EDA", "코드"])
 if st.sidebar.selectbox("데이터"):
-
-
-        st.subheader("전체 점포수")
-        plt.figure(figsize=(12, 10))
-        sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
-        _ = plt.title('서울시 구별 21년도 전체 점포수')
-        st.pyplot()    
+    st.subheader("전체 점포수")
+#         plt.figure(figsize=(12, 10))
+#         sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
+#         _ = plt.title('서울시 구별 21년도 전체 점포수')
+#         st.pyplot()    
 #         st.subheader("전체 개업수")
 #         plt.figure(figsize=(12, 10))
 #         sns.barplot(data=df_a.sort_values('개업수'),x='개업수',y='지역', ci=None)
