@@ -4,6 +4,7 @@ import numpy as np
 import streamlit as st
 from IPython import get_ipython
 import matplotlib.pyplot as plt
+import koreanize_matplotlib
 
 # 윈도우 : "Malgun Gothic"
 # 맥 : "AppleGothic"
