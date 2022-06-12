@@ -335,44 +335,16 @@ st.pyplot()
 a.groupby("기준_분기_코드")[['연령대_10_매출_금액','연령대_20_매출_금액','연령대_30_매출_금액','연령대_40_매출_금액','연령대_50_매출_금액','연령대_60_이상_매출_금액']].mean().plot(kind="bar", rot=0)
 st.pyplot()
 
-#지역, 요일별 매출액 추이
-df_gu_day = a[["시군구_코드_명","월요일_매출_금액","화요일_매출_금액","수요일_매출_금액","목요일_매출_금액","금요일_매출_금액","토요일_매출_금액","일요일_매출_금액"]]
-df_gu = a.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출액")
-plt.figure(figsize=(16, 12))
-sns.lineplot(data=df_gu, x="요일", y="매출액", hue='시군구_코드_명', markers=True, ci=None, style="시군구_코드_명")
-plt.title('서울시 지역구, 요일별 매출액 추이')
-plt.legend(bbox_to_anchor=(1,1))
-st.pyplot()
 
+geo_path = pd.read_json("https://raw.githubusercontent.com/Map-Jo/test/main/seoul_municipalities_geo_simple%20(1).json")
 
-# #지역, 요일별 매출 건수 추이
-# df_gu_count = a[["시군구_코드_명","월요일_매출_건수","화요일_매출_건수","수요일_매출_건수","목요일_매출_건수","금요일_매출_건수","토요일_매출_건수","일요일_매출_건수"]]
-# df_gu_count = df_gu_count.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출건수")
-# df_gu_count
+geo_json = json.load(open(geo_path, encoding="utf-8"))
+df_pop = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv')  #인구수 파일이어서 변수명을 popular의 Pop으로
+df_pop
+df_popular= df_pop.groupby("지역")["직장 인구"].sum().reset_index()
+df_popular['지역']=df_popular['지역'].str.strip() #인구수 csv 파일에서 지역명앞에 한칸 띄어져있어서 strip해줌
+df_popular #choropleth 그리기 위해서 필요한 데이터
 
-# plt.figure(figsize=(16, 12))
-# sns.lineplot(data=df_gu_count, x="요일", y="매출건수", hue='시군구_코드_명', markers=True, ci=None, style="시군구_코드_명")
-# plt.title('서울시 지역구, 요일별 매출건수 추이')
-# plt.legend(bbox_to_anchor=(1,1))
-# st.pyplot()
-
-
-
-
-
-# m = pd.pivot_table(df_gu_count, index = "요일", columns="시군구_코드_명", values = "매출건수").round()
-# plt.figure(figsize=(28,8))
-# sns.heatmap(m, linewidths = 0.4, # 선의 굵기
-#             linecolor = 'white', # 선의 색깔
-
-#             annot = True,      # 실제 값 화면에 나타내기
-#                cmap = 'RdYlBu_r',  # Red, Yellow, Blue 색상으로 표시
-#             # 소수점 포맷팅 형태
-# )
-# plt.xticks(fontsize=8,rotation= 0) 
-# plt.title('요일별, 지역별 매출건수 히트맵', fontsize=20)
-
-# st.pyplot()
 
 
 
