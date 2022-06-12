@@ -9,6 +9,13 @@ from pyproj import Proj, transform
 import folium
 import pyproj
 
+import seaborn as sns
+import plotly.express as px
+import cufflinks as cf
+import json
+cf.go_offline(connected=True)
+
+
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 a = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C_%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C_%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%8B%A0_%EC%83%81%EA%B6%8C_%EC%B6%94%EC%A0%95%EB%A7%A4%EC%B6%9C)_2021%EB%85%84.csv",encoding='euc-kr')
 b = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%83%81%EA%B6%8C%EC%98%81%EC%97%AD).csv",encoding='euc-kr', usecols=['상권_코드_명',"행정동_코드","시군구_코드",'엑스좌표_값','와이좌표_값'])
@@ -66,14 +73,13 @@ for col in df.columns :
 a= a.merge(c, on="시군구_코드", how="left")
 
 a = a.dropna()
-del a["엑스좌표_값"]
-del a["와이좌표_값_x"]
-del a["와이좌표_값_y"]
+a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])
 
-
-
-
-
+subset = a[['기준_분기_코드','분기당_매출_금액','시군구_코드_명']]
+df2 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D_%EC%9D%B8%EA%B5%AC%EC%88%98_2021.csv")
+subset = df2.groupby(["지역"])['길단위 유동인구'].sum().sort_values()
+fig = subset.iplot(kind="bar",color='blue',title='유동인구')
+st.plotly_chart(fig)
 
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
