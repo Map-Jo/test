@@ -3,5 +3,7 @@ numpy
 streamlit
 matplotlib
 koreanize_matplotlib
-
-
+Proj
+transform
+folium
+pyproj
