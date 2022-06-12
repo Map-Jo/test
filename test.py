@@ -234,7 +234,7 @@ plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('직장 인구'),x='직장 인구',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 직장인구')
 
-
+df_a_nf = df_a.groupby('지역')['프랜차이즈 점포수', '일반 점포수'].mean()
 # 틀만들기
 fig, axs = plt.subplots(ncols=2, sharey=True, 
                         figsize=(10, 8), gridspec_kw={"wspace":0})
