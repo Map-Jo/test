@@ -202,7 +202,7 @@ df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
 st.sidebar.header("Data of Seoul")
-analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation"])
+analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation", "Sales"])
 if analysis_type=="Store":
     st.subheader("전체 점포수")
 
@@ -309,52 +309,53 @@ df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"]
 df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
 df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
 
-
-df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
-colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
-df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
-plt.xlabel('%')
-plt.xlim(98,100)
-st.pyplot()
+if analysis_type=="Correlation":
+    df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
+    colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
+    df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
+    plt.xlabel('%')
+    plt.xlim(98,100)
+    st.pyplot()
 
 df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
 plt.ylim(98,100)
 st.pyplot()
 
-a.groupby("기준_분기_코드")[["월요일_매출_금액","화요일_매출_금액","수요일_매출_금액","목요일_매출_금액","금요일_매출_금액","토요일_매출_금액","일요일_매출_금액"]].mean().plot(kind="bar", rot=0)
-st.pyplot()
+if analysis_type=="Sales":
+    a.groupby("기준_분기_코드")[["월요일_매출_금액","화요일_매출_금액","수요일_매출_금액","목요일_매출_금액","금요일_매출_금액","토요일_매출_금액","일요일_매출_금액"]].mean().plot(kind="bar", rot=0)
+    st.pyplot()
 
-a.groupby("기준_분기_코드")[['시간대_00~06_매출_금액','시간대_06~11_매출_금액','시간대_11~14_매출_금액','시간대_14~17_매출_금액','시간대_17~21_매출_금액','시간대_21~24_매출_금액']].mean().plot(kind="bar", rot=0)
-st.pyplot()
+    a.groupby("기준_분기_코드")[['시간대_00~06_매출_금액','시간대_06~11_매출_금액','시간대_11~14_매출_금액','시간대_14~17_매출_금액','시간대_17~21_매출_금액','시간대_21~24_매출_금액']].mean().plot(kind="bar", rot=0)
+    st.pyplot()
 
-a.groupby("기준_분기_코드")[['연령대_10_매출_금액','연령대_20_매출_금액','연령대_30_매출_금액','연령대_40_매출_금액','연령대_50_매출_금액','연령대_60_이상_매출_금액']].mean().plot(kind="bar", rot=0)
-st.pyplot()
-
-
-geo_path = pd.read_json("https://raw.githubusercontent.com/Map-Jo/test/main/seoul_municipalities_geo_simple%20(1).json")
-
-geo_json = json.load(open(geo_path, encoding="utf-8"))
-df_pop = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
-
-df_popular= df_pop.groupby("지역")["직장 인구"].sum().reset_index()
-df_popular['지역']=df_popular['지역'].str.strip()
-
-m = folium.Map(location=[df["위도"].mean(), df["경도"].mean()], zoom_start=12)
+    a.groupby("기준_분기_코드")[['연령대_10_매출_금액','연령대_20_매출_금액','연령대_30_매출_금액','연령대_40_매출_금액','연령대_50_매출_금액','연령대_60_이상_매출_금액']].mean().plot(kind="bar", rot=0)
+    st.pyplot()
 
 
+# geo_path = pd.read_json("https://raw.githubusercontent.com/Map-Jo/test/main/seoul_municipalities_geo_simple%20(1).json")
 
-folium.Choropleth(
-    geo_data=geo_json,
-    name="choropleth",
-    data=df_popular,
-    columns=["지역","직장 인구"],
-    key_on="feature.properties.name",
-    fill_color = "YlGn",
-    fill_opacity=0.8,
-    line_opacity = 0.2,
-    legend_name="직장인구 수",
-).add_to(m)
-m
+# geo_json = json.load(open(geo_path, encoding="utf-8"))
+# df_pop = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
+
+# df_popular= df_pop.groupby("지역")["직장 인구"].sum().reset_index()
+# df_popular['지역']=df_popular['지역'].str.strip()
+
+# m = folium.Map(location=[df["위도"].mean(), df["경도"].mean()], zoom_start=12)
+
+
+
+# folium.Choropleth(
+#     geo_data=geo_json,
+#     name="choropleth",
+#     data=df_popular,
+#     columns=["지역","직장 인구"],
+#     key_on="feature.properties.name",
+#     fill_color = "YlGn",
+#     fill_opacity=0.8,
+#     line_opacity = 0.2,
+#     legend_name="직장인구 수",
+# ).add_to(m)
+# m
 
 
 
