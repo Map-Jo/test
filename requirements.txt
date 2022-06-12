@@ -1,7 +1,7 @@
 pandas
 numpy as np
 streamlit as st
-matplotlib
+matplotlib.pyplot
 koreanize_matplotlib
 
 
