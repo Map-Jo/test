@@ -16,6 +16,10 @@ import plotly.graph_objects as go
 import json
 cf.go_offline(connected=True)
 
+from PIL import Image
+img = Image.open("C:\Users\a\Desktop\start")
+st.image(img, width=400, caption="Image example: Cat")
+
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
