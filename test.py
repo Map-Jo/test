@@ -201,10 +201,11 @@ for i in object_list:
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
-
-st.sidebar.header("사이드바 메뉴")
-st.sidebar.selectbox("메뉴를 선택하세요.", ["점포 정보"])
-if analysis_type=="점포 정보":
+analysis_type =sidebar.radio("Analysis Type", ["Single", "Multiple"])
+st.markdown(f"Analysis Mode: {analysis_type}")
+# st.sidebar.header("사이드바 메뉴")
+# st.sidebar.selectbox("메뉴를 선택하세요.", ["점포 정보"])
+if analysis_type==""Single":
 
     plt.figure(figsize=(12, 10))
     sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
