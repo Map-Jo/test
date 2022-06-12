@@ -222,7 +222,7 @@ st.pyplot()
 st.text("주거인구")
 plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('주거 인구'),x='주거 인구',y='지역', ci=None)
- _ = plt.title('서울시 구별 21년도 주거인구')
+_ = plt.title('서울시 구별 21년도 주거인구')
 st.pyplot()
 
 st.text("직장인구")
