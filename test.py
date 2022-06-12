@@ -202,7 +202,7 @@ df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
 st.sidebar.header("Data of Seoul")
-analysis_type =st.sidebar.selectbox("Select", ["Store", "orrelation"])
+analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation"])
 if analysis_type=="Store":
     st.subheader("전체 점포수")
 
