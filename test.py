@@ -345,34 +345,34 @@ plt.legend(bbox_to_anchor=(1,1))
 st.pyplot()
 
 
-#지역, 요일별 매출 건수 추이
-df_gu_count = a[["시군구_코드_명","월요일_매출_건수","화요일_매출_건수","수요일_매출_건수","목요일_매출_건수","금요일_매출_건수","토요일_매출_건수","일요일_매출_건수"]]
-df_gu_count = df_gu_count.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출건수")
-df_gu_count
+# #지역, 요일별 매출 건수 추이
+# df_gu_count = a[["시군구_코드_명","월요일_매출_건수","화요일_매출_건수","수요일_매출_건수","목요일_매출_건수","금요일_매출_건수","토요일_매출_건수","일요일_매출_건수"]]
+# df_gu_count = df_gu_count.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출건수")
+# df_gu_count
 
-plt.figure(figsize=(16, 12))
-sns.lineplot(data=df_gu_count, x="요일", y="매출건수", hue='시군구_코드_명', markers=True, ci=None, style="시군구_코드_명")
-plt.title('서울시 지역구, 요일별 매출건수 추이')
-plt.legend(bbox_to_anchor=(1,1))
-st.pyplot()
-
-
+# plt.figure(figsize=(16, 12))
+# sns.lineplot(data=df_gu_count, x="요일", y="매출건수", hue='시군구_코드_명', markers=True, ci=None, style="시군구_코드_명")
+# plt.title('서울시 지역구, 요일별 매출건수 추이')
+# plt.legend(bbox_to_anchor=(1,1))
+# st.pyplot()
 
 
 
-m = pd.pivot_table(df_gu_count, index = "요일", columns="시군구_코드_명", values = "매출건수").round()
-plt.figure(figsize=(28,8))
-sns.heatmap(m, linewidths = 0.4, # 선의 굵기
-            linecolor = 'white', # 선의 색깔
 
-            annot = True,      # 실제 값 화면에 나타내기
-               cmap = 'RdYlBu_r',  # Red, Yellow, Blue 색상으로 표시
-            # 소수점 포맷팅 형태
-)
-plt.xticks(fontsize=8,rotation= 0) 
-plt.title('요일별, 지역별 매출건수 히트맵', fontsize=20)
 
-st.pyplot()
+# m = pd.pivot_table(df_gu_count, index = "요일", columns="시군구_코드_명", values = "매출건수").round()
+# plt.figure(figsize=(28,8))
+# sns.heatmap(m, linewidths = 0.4, # 선의 굵기
+#             linecolor = 'white', # 선의 색깔
+
+#             annot = True,      # 실제 값 화면에 나타내기
+#                cmap = 'RdYlBu_r',  # Red, Yellow, Blue 색상으로 표시
+#             # 소수점 포맷팅 형태
+# )
+# plt.xticks(fontsize=8,rotation= 0) 
+# plt.title('요일별, 지역별 매출건수 히트맵', fontsize=20)
+
+# st.pyplot()
 
 
 
