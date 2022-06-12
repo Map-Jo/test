@@ -9,6 +9,6 @@ folium
 pyproj
 
 seaborn
-plotly.express
+plotly
 cufflinks
 json
