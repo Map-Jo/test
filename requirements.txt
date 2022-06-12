@@ -1,6 +1,8 @@
 pandas
-numpy
-streamlit
-IPython
+numpy as np
+streamlit as st
 matplotlib
 koreanize_matplotlib
+Proj, transform
+folium
+pyproj
