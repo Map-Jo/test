@@ -74,7 +74,7 @@ def total_graph(gu):
 
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
-st.title("서울시 내에 창업을 계획중이신가요?")
+st.title("서울에 창업을 계획중이신가요?")
 input_reg = st.text_input(label="지역명 ex)종로구", value="지역명을 입력해주세요.")
 
 
