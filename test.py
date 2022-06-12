@@ -296,6 +296,11 @@ def make_qt(x):
 
 df_u = pd.merge(df_u,df3,on="지역",how="left")
 df_u["전체 점포수"] = df_u["전체 점포수"] / df_u["면적"]
+df_u["총인구"]=df_u["길단위 유동인구"]+df_u["주거 인구"]+df_u["직장 인구"]
+
+
+
+
 
 pop_mar = {}
 for place in df_u["지역"].unique():
