@@ -3,6 +3,6 @@ numpy as np
 streamlit as st
 matplotlib
 koreanize_matplotlib
-Proj, transform
+Proj
 folium
 pyproj
