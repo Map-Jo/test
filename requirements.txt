@@ -11,4 +11,4 @@ pyproj
 seaborn
 plotly
 cufflinks
-json
+st.json
