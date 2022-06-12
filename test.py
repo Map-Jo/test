@@ -302,24 +302,24 @@ if analysis_type=="Correlation":
     df_pop_mar.plot.barh(title="지역별 인구수와 점포수 상관관계", figsize=(12,10), rot = 0, color="orange")
     st.pyplot()
     
-if analysis_type=="Population":
+# if analysis_type=="Population":
 
     # 유동인구 비율 데이터 추가
-    df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
-    df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
-    df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
+df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
+df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
+df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
 
 
-    df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
-    colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
-    df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
-    plt.xlabel('%')
-    plt.xlim(98,100)
-    st.pyplot()
+df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
+colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
+df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
+plt.xlabel('%')
+plt.xlim(98,100)
+st.pyplot()
 
-    df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
-    plt.ylim(98,100)
-    st.pyplot()
+df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
+plt.ylim(98,100)
+st.pyplot()
 
 if analysis_type=="Sales":
     
