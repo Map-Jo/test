@@ -16,10 +16,6 @@ import plotly.graph_objects as go
 import json
 cf.go_offline(connected=True)
 
-from PIL import Image
-img = Image.open("C:\\Users\\a\\Desktop\\start.png")
-st.image(img, width=400, caption="Image example: Cat")
-
 
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
@@ -376,7 +372,10 @@ if analysis_type=="Sales":
     st.pyplot()
 
 st.sidebar.markdown("# Please note:")
-st.sidebar.warning('경고를 하고 싶을때')
+st.sidebar.warning("""이 데이터는 2021년 서울시 유동인구, 상권분석, 점포수 등의 데이터만 제공하고있습니다.
+데이터를 참고하시기 전 이 점 유의하시기 바랍니다.
+앞으로 더 많은 데이터를 제공할 수 있도록 노력하는 88돌아다니조가 되겠습니다.
+감사합니다.""")
 
 
 
