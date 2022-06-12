@@ -211,6 +211,26 @@ if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(df)
 
+df_c = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
+object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
+for i in object_list:
+    df_c[i]=df_c[i].str.replace(',', '').astype('int64')
+
+df_c['지역'] = df_c['지역'].str.strip()
+df_a = df_c[df_c['지역'] != '서울시 전체']
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 전체 점포수')
+st.pyplot()    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 st.dataframe(a)
 st.dataframe(b)
 st.dataframe(c)
