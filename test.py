@@ -269,7 +269,7 @@ for ax in axs:
                 c=c, fontsize=13, va="center", ha=ha, 
                 fontweight="bold", alpha=0.5)
 fig.suptitle("구별 프랜차이즈, 일반 점포수 비교", fontweight="bold")
-fig.tight_layout()
+# fig.tight_layout()
 st.pyplot()
 
 
