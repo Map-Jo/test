@@ -164,9 +164,6 @@ if st.checkbox('Show raw data'):
     st.write(df)
 
 
-st.dataframe(df)
-
-
 
 
 
