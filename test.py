@@ -23,7 +23,6 @@ b = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC
 c = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%9E%90%EC%B9%98%EA%B5%AC%EB%B3%84%20%EC%83%81%EA%B6%8C%EB%B3%80%ED%99%94%EC%A7%80%ED%91%9C).csv",encoding='euc-kr', usecols=["시군구_코드","시군구_코드_명"])
 c = c.drop_duplicates()
 
-
 a = a.merge(b, on="상권_코드_명", how="left")
 
 k = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EC%9A%B0%EB%A6%AC%EB%A7%88%EC%9D%84%EA%B0%80%EA%B2%8C%20%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D%EC%84%9C%EB%B9%84%EC%8A%A4(%EC%83%81%EA%B6%8C%EC%98%81%EC%97%AD).csv",encoding='euc-kr', usecols=["엑스좌표_값","와이좌표_값"])
@@ -194,10 +193,18 @@ elif input_reg == "강동구":
     st.pyplot(total_graph(input_reg))
 
 
-
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(df)
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.dataframe(a)
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.dataframe(b)
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.dataframe(c)
 
 df_c = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
@@ -206,6 +213,10 @@ for i in object_list:
 
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
+
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.dataframe(df_a)
 
 # 전체 점포수
 plt.figure(figsize=(12, 10))
@@ -367,15 +378,4 @@ m
 
 
 
-
-
-
-
-
-
-
-
-st.dataframe(a)
-st.dataframe(b)
-st.dataframe(c)
 
