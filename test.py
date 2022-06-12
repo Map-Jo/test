@@ -274,42 +274,42 @@ if analysis_type=="Correlation":
     st.pyplot()
 
 
-df_u = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
-df3 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%ED%96%89%EC%A0%95%EA%B5%AC%EC%97%AD_%EA%B5%AC%EB%B3%84__20220610170356.csv",encoding='euc-kr' )
-df3=df3[["자치구","2019"]]
-df3.columns=["지역","면적"]
-df_u['지역'] = df_u['지역'].apply(lambda x: str(x).replace(u'\xa0', u''))
-def remove_comma(x):
-    return x.replace(',', '')
+    df_u = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
+    df3 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%ED%96%89%EC%A0%95%EA%B5%AC%EC%97%AD_%EA%B5%AC%EB%B3%84__20220610170356.csv",encoding='euc-kr' )
+    df3=df3[["자치구","2019"]]
+    df3.columns=["지역","면적"]
+    df_u['지역'] = df_u['지역'].apply(lambda x: str(x).replace(u'\xa0', u''))
+    def remove_comma(x):
+        return x.replace(',', '')
 
-columns = ["전체 점포수", "프랜차이즈 점포수","일반 점포수","길단위 유동인구", "개업수", "폐업수"]
+    columns = ["전체 점포수", "프랜차이즈 점포수","일반 점포수","길단위 유동인구", "개업수", "폐업수"]
 
-for column in columns:
-    df_u[column]=df_u[column].apply(remove_comma).astype(int)
-def make_qt(x):
-    return x.replace("분기","")
+    for column in columns:
+        df_u[column]=df_u[column].apply(remove_comma).astype(int)
+    def make_qt(x):
+        return x.replace("분기","")
 
-df_u = pd.merge(df_u,df3,on="지역",how="left")
-df_u["전체 점포수"] = df_u["전체 점포수"] / df_u["면적"]
-df_u["총인구"]=df_u["길단위 유동인구"]+df_u["주거 인구"]+df_u["직장 인구"]
-
-
+    df_u = pd.merge(df_u,df3,on="지역",how="left")
+    df_u["전체 점포수"] = df_u["전체 점포수"] / df_u["면적"]
+    df_u["총인구"]=df_u["길단위 유동인구"]+df_u["주거 인구"]+df_u["직장 인구"]
 
 
 
-pop_mar = {}
-for place in df_u["지역"].unique():
-    pop_mar[place]=(df_u[df_u["지역"] == place][["전체 점포수", "총인구"]].corr()["총인구"]["전체 점포수"])
-df_pop_mar = pd.DataFrame.from_dict(pop_mar, orient='index').rename(columns={0:"상관계수"})    
-df_pop_mar.plot.barh(title="지역별 인구수와 점포수 상관관계", figsize=(12,10), rot = 0, color="orange")
-st.pyplot()
 
-# 유동인구 비율 데이터 추가
-df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
-df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
-df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
 
-if analysis_type=="Correlation":
+    pop_mar = {}
+    for place in df_u["지역"].unique():
+        pop_mar[place]=(df_u[df_u["지역"] == place][["전체 점포수", "총인구"]].corr()["총인구"]["전체 점포수"])
+    df_pop_mar = pd.DataFrame.from_dict(pop_mar, orient='index').rename(columns={0:"상관계수"})    
+    df_pop_mar.plot.barh(title="지역별 인구수와 점포수 상관관계", figsize=(12,10), rot = 0, color="orange")
+    st.pyplot()
+
+    # 유동인구 비율 데이터 추가
+    df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
+    df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
+    df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
+
+
     df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
     colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
     df_per.plot.barh(title="구별 유동인구 비율",figsize=(12,10), color = colors)
