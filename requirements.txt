@@ -10,5 +10,4 @@ pyproj
 
 seaborn
 plotly
-cufflinks
-simplejson==3.17.0
+Image
