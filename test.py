@@ -201,6 +201,8 @@ for i in object_list:
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
+st.sidebar.header("사이드바 메뉴")
+st.sidebar.selectbox("메뉴를 선택하세요.", ["데이터", "EDA", "코드"])
 
 st.subheader("전체 점포수")
 plt.figure(figsize=(12, 10))
@@ -213,19 +215,19 @@ sns.barplot(data=df_a.sort_values('개업수'),x='개업수',y='지역', ci=None
 _ = plt.title('서울시 구별 21년도 개업수')    
 st.pyplot()
 
-st.text("전체 폐업수")
+st.subheader("전체 폐업수")
 plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('폐업수'),x='폐업수',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 폐업수')    
 st.pyplot()
 
-st.text("주거인구")
+st.subheader("주거인구")
 plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('주거 인구'),x='주거 인구',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 주거인구')
 st.pyplot()
 
-st.text("직장인구")
+st.subheader("직장인구")
 plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('직장 인구'),x='직장 인구',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 직장인구')
