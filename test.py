@@ -5,7 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import koreanize_matplotlib
 
-# from pyproj import Proj, transform
+from pyproj import Proj, transform
 # import folium
 # import pyproj
 
