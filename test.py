@@ -201,35 +201,35 @@ for i in object_list:
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
-if st.checkbox('Show raw data'):
-    # 전체 점포수
-    plt.figure(figsize=(12, 10))
-    sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
-    _ = plt.title('서울시 구별 21년도 전체 점포수')
-    st.pyplot()    
-        #전체 개업수
-    plt.figure(figsize=(12, 10))
-    sns.barplot(data=df_a.sort_values('개업수'),x='개업수',y='지역', ci=None)
-    _ = plt.title('서울시 구별 21년도 개업수')    
-    st.pyplot()
 
-       #전체 폐업수 
-    plt.figure(figsize=(12, 10))
-    sns.barplot(data=df_a.sort_values('폐업수'),x='폐업수',y='지역', ci=None)
-    _ = plt.title('서울시 구별 21년도 폐업수')    
-    st.pyplot()
+st.text("전체 점포수")
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 전체 점포수')
+st.pyplot()    
+st.text("전체 개업수")
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('개업수'),x='개업수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 개업수')    
+st.pyplot()
 
-        #주거인구
-    plt.figure(figsize=(12, 10))
-    sns.barplot(data=df_a.sort_values('주거 인구'),x='주거 인구',y='지역', ci=None)
-    _ = plt.title('서울시 구별 21년도 주거인구')
-    st.pyplot()
+st.text("전체 폐업수")
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('폐업수'),x='폐업수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 폐업수')    
+st.pyplot()
 
-    #직장인구
-    plt.figure(figsize=(12, 10))
-    sns.barplot(data=df_a.sort_values('직장 인구'),x='직장 인구',y='지역', ci=None)
-    _ = plt.title('서울시 구별 21년도 직장인구')
-    st.pyplot()
+st.text("주거인구")
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('주거 인구'),x='주거 인구',y='지역', ci=None)
+ _ = plt.title('서울시 구별 21년도 주거인구')
+st.pyplot()
+
+st.text("직장인구")
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('직장 인구'),x='직장 인구',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 직장인구')
+st.pyplot()
 
 df_a_nf = df_a.groupby('지역')['프랜차이즈 점포수', '일반 점포수'].mean()
 # 틀만들기
