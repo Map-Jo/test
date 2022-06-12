@@ -6,46 +6,6 @@ from IPython import get_ipython
 import matplotlib.pyplot as plt
 import koreanize_matplotlib
 
-# 윈도우 : "Malgun Gothic"
-# 맥 : "AppleGothic"
-# def get_font_family():
-#     """
-#     시스템 환경에 따른 기본 폰트명을 반환하는 함수
-#     """
-#     import platform
-#     system_name = platform.system()
-#     # colab 사용자는 system_name이 'Linux'로 확인
-
-#     if system_name == "Darwin" :
-#         font_family = "AppleGothic"
-#     elif system_name == "Windows":
-#         font_family = "Malgun Gothic"
-#     else:
-#         pip install fonts-nanum -qq  > /dev/null
-#         sudo fc-cache -fv
-
-#         import matplotlib as mpl
-#         mpl.font_manager._rebuild()
-#         findfont = mpl.font_manager.fontManager.findfont
-#         mpl.font_manager.findfont = findfont
-#         mpl.backends.backend_agg.findfont = findfont
-        
-#         font_family = "NanumBarunGothic"
-#     return font_family
-
-
-# plt.style.use("seaborn-whitegrid")
-
-# # 폰트설정
-# plt.rc("font", family=get_font_family())
-# # 마이너스폰트 설정
-# plt.rc("axes", unicode_minus=False)
-
-# # 그래프에 retina display 적용
-# from IPython.display import set_matplotlib_formats
-
-# %config InlineBackend.figure_format = 'retina'
-
 df = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
@@ -104,7 +64,7 @@ def total_graph(gu):
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("서울시 내에 창업을 계획중이신가요?")
-input_reg = st.text_input(label="지역명 ex)종로구", value="지역명을 입력해주세요.")
+input_reg = st.text_input(label="지역명 ex)", value="지역명을 입력해주세요.")
 
 
 if input_reg == "강남구":
@@ -151,7 +111,7 @@ elif input_reg == "관악구":
     st.pyplot(total_graph(input_reg))
 elif input_reg == "서초구":
     st.pyplot(total_graph(input_reg))
-elif input_reg == "강남구":
+elif input_reg == "":
     st.pyplot(total_graph(input_reg))
 elif input_reg == "송파구":
     st.pyplot(total_graph(input_reg))
