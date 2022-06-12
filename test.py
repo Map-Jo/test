@@ -202,7 +202,7 @@ df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
 st.sidebar.header("Data of Seoul")
-analysis_type =st.sidebar.selectbox("Select", ["Store", "Correlation", "Sales", "Population"])
+analysis_type =st.sidebar.radio("Select", ["Store", "Correlation", "Sales", "Population"])
 if analysis_type=="Store":
     st.subheader("전체 점포수")
 
@@ -305,6 +305,24 @@ if analysis_type=="Correlation":
     st.pyplot()
     
 if analysis_type=="Population":
+    df_u = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
+    df3 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%ED%96%89%EC%A0%95%EA%B5%AC%EC%97%AD_%EA%B5%AC%EB%B3%84__20220610170356.csv",encoding='euc-kr' )
+    df3=df3[["자치구","2019"]]
+    df3.columns=["지역","면적"]
+    df_u['지역'] = df_u['지역'].apply(lambda x: str(x).replace(u'\xa0', u''))
+    def remove_comma(x):
+        return x.replace(',', '')
+
+    columns = ["전체 점포수", "프랜차이즈 점포수","일반 점포수","길단위 유동인구", "개업수", "폐업수"]
+
+    for column in columns:
+        df_u[column]=df_u[column].apply(remove_comma).astype(int)
+    def make_qt(x):
+        return x.replace("분기","")
+
+    df_u = pd.merge(df_u,df3,on="지역",how="left")
+    df_u["전체 점포수"] = df_u["전체 점포수"] / df_u["면적"]
+    df_u["총인구"]=df_u["길단위 유동인구"]+df_u["주거 인구"]+df_u["직장 인구"]
     # 유동인구 비율 데이터 추가
     df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
     df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
