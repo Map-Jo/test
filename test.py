@@ -82,6 +82,18 @@ subset = df2.groupby(["지역"])['길단위 유동인구'].sum().sort_values()
 fig = subset.iplot(asFigure=True, kind="bar",color='blue',title='유동인구')
 st.plotly_chart(fig)
 
+df_a = df[df['지역'] != '서울시 전체']
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
+fig1 = plt.title('서울시 구별 21년도 전체 점포수')
+st.pyplot(fig1)
+
+
+
+
+
+
+
 
 object_list=['전체 점포수','프랜차이즈 점포수','일반 점포수','길단위 유동인구', '개업수', '폐업수']
 for i in object_list:
