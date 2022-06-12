@@ -76,7 +76,7 @@ a = a.dropna()
 a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])
 
 subset = a[['기준_분기_코드','분기당_매출_금액','시군구_코드_명']]
-df2 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D_%EC%9D%B8%EA%B5%AC%EC%88%98_2021.csv",encoding='euc-kr')
+df2 = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%83%81%EA%B6%8C%EB%B6%84%EC%84%9D_%EC%9D%B8%EA%B5%AC%EC%88%98_2021.csv")
 subset = df2.groupby(["지역"])['길단위 유동인구'].sum().sort_values()
 fig = subset.iplot(kind="bar",color='blue',title='유동인구')
 st.plotly_chart(fig)
