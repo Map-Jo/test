@@ -187,9 +187,9 @@ a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"
 
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
-    st.text('서울시 인구·점포·개·폐업 정보')
+    st.subheader('서울시 인구·점포·개·폐업 정보')
     st.write(df)
-    st.text('서울시 상권 추정매출')
+    st.subheader('서울시 상권 추정매출')
     st.write(a)
 
 
@@ -341,6 +341,7 @@ if analysis_type=="Population":
     st.pyplot()
 
 if analysis_type=="Sales":
+    
     df_gu_count = a[["시군구_코드_명","월요일_매출_건수","화요일_매출_건수","수요일_매출_건수","목요일_매출_건수","금요일_매출_건수","토요일_매출_건수","일요일_매출_건수"]]
     df_gu_count = df_gu_count.melt(id_vars ="시군구_코드_명", var_name="요일", value_name="매출건수")
     m = pd.pivot_table(df_gu_count, index = "요일", columns="시군구_코드_명", values = "매출건수").round()
@@ -356,12 +357,14 @@ if analysis_type=="Sales":
     plt.title('요일별, 지역별 매출건수 히트맵', fontsize=20)
     st.pyplot()
 
-    
+    st.subheader('서울시 요일별 매출 금액')
     a.groupby("기준_분기_코드")[["월요일_매출_금액","화요일_매출_금액","수요일_매출_금액","목요일_매출_금액","금요일_매출_금액","토요일_매출_금액","일요일_매출_금액"]].mean().plot(kind="bar", rot=0)
     st.pyplot()
+    st.subheader('서울시 시간대별 매출 금액')
 
     a.groupby("기준_분기_코드")[['시간대_00~06_매출_금액','시간대_06~11_매출_금액','시간대_11~14_매출_금액','시간대_14~17_매출_금액','시간대_17~21_매출_금액','시간대_21~24_매출_금액']].mean().plot(kind="bar", rot=0)
     st.pyplot()
+    st.subheader('서울시 연령대별 매출 금액')
 
     a.groupby("기준_분기_코드")[['연령대_10_매출_금액','연령대_20_매출_금액','연령대_30_매출_금액','연령대_40_매출_금액','연령대_50_매출_금액','연령대_60_이상_매출_금액']].mean().plot(kind="bar", rot=0)
     st.pyplot()
