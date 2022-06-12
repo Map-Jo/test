@@ -206,19 +206,77 @@ for i in object_list:
 
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
+
+# 전체 점포수
 plt.figure(figsize=(12, 10))
 sns.barplot(data=df_a.sort_values('전체 점포수'),x='전체 점포수',y='지역', ci=None)
 _ = plt.title('서울시 구별 21년도 전체 점포수')
 st.pyplot()    
+    #전체 개업수
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('개업수'),x='개업수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 개업수')    
+st.pyplot()
     
+   #전체 폐업수 
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('폐업수'),x='폐업수',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 폐업수')    
     
+    #주거인구
+plt.figure(figsize=(12, 10))
+sns.barplot(data=df_a.sort_values('주거 인구'),x='주거 인구',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 주거인구')
+
+#직장인구
+plt.figure(figsize=(12, 10))
+
+sns.barplot(data=df_a.sort_values('직장 인구'),x='직장 인구',y='지역', ci=None)
+_ = plt.title('서울시 구별 21년도 직장인구')
+
+
+# 틀만들기
+fig, axs = plt.subplots(ncols=2, sharey=True, 
+                        figsize=(10, 8), gridspec_kw={"wspace":0})
+
+c_f = "green"
+c_n = "darkorange"
+
+#바 그래프 생성하기
+axs[0].barh(df_a_nf.index, df_a_nf["프랜차이즈 점포수"], color=c_f)
+axs[1].barh(df_a_nf.index, df_a_nf["일반 점포수"], color=c_n)
+
+#단위 맞쳐주기
+xmax = 5500
+x2max=65000
+axs[0].set_xlim(xmax, 0)
+axs[1].set_xlim(0, x2max)
+
+#제목 설정하기
+for ax,title in zip(axs,['프랜차이즈 점포수','일반 점포수']):
+    ax.set_title(title, color="gray", fontweight="bold", pad=16)
+
     
-    
-    
-    
-    
-    
-    
+#꾸미기
+for ax in axs:
+    for i, p in enumerate(ax.patches):
+        w = p.get_width()
+        if ax == axs[0]:
+            ha = "right"
+            c = c_f
+        else:
+            ha = "left"
+            c = c_n
+        
+        ax.text(w, i, f" {format(w, ',')} ", 
+                c=c, fontsize=13, va="center", ha=ha, 
+                fontweight="bold", alpha=0.5)
+fig.suptitle("구별 프랜차이즈, 일반 점포수 비교", fontweight="bold")
+fig.tight_layout()
+st.pyplot()
+
+
+
 st.dataframe(a)
 st.dataframe(b)
 st.dataframe(c)
