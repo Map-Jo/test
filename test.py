@@ -67,7 +67,7 @@ a= a.merge(c, on="시군구_코드", how="left")
 
 a = a.dropna()
 del a["엑스좌표_값"]
-del a["엑스좌표_값_x"]
+del a["와이좌표_값_x"]
 del a["와이좌표_값_y"]
 
 
