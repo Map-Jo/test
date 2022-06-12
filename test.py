@@ -203,6 +203,9 @@ df_a = df_c[df_c['지역'] != '서울시 전체']
 
 st.sidebar.header("사이드바 메뉴")
 st.sidebar.selectbox("메뉴를 선택하세요.", ["데이터", "EDA", "코드"])
+with st.sidebar:
+    st.["데이터"]
+
 
 st.subheader("전체 점포수")
 plt.figure(figsize=(12, 10))
