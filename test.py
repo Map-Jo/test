@@ -17,7 +17,7 @@ import json
 cf.go_offline(connected=True)
 
 from PIL import Image
-img = Image.open("C:\\Users\\a\\Desktop\\start")
+img = Image.open("C:\\Users\\a\\Desktop/start")
 st.image(img, width=400, caption="Image example: Cat")
 
 
