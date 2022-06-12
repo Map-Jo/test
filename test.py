@@ -322,9 +322,7 @@ plt.xlabel('%')
 plt.xlim(98,100)
 st.pyplot()
 
-df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), 
-                                                                            stacked=True,
-                                                                            rot=30)
+df_u[["지역","유동인구 비율", "직장인구 비율","주거인구 비율"]].groupby(df_u["지역"]).mean().plot.bar(figsize = (12,10), stacked=True,rot=30)
 plt.ylim(98,100)
 st.pyplot()
 
