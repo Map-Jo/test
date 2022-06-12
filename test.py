@@ -156,35 +156,34 @@ def project_array(coord, p1_type, p2_type):
     fx, fy = pyproj.transform(p1, p2, coord[:, 0], coord[:, 1])
     return np.dstack([fx, fy])[0]
 coord = np.array(k)
-coord
 
 
-# p1_type = "epsg:5181"
-# p2_type = "epsg:4326"
+p1_type = "epsg:5181"
+p2_type = "epsg:4326"
 
-# # project_array() 함수 실행
-# result = project_array(coord, p1_type, p2_type)
-# result
-
-# k["위도"] = result[:,1]
-# k["경도"] = result[:,0]
+# project_array() 함수 실행
+result = project_array(coord, p1_type, p2_type)
 
 
-# a = a.merge(k, on="엑스좌표_값", how="left")
+k["위도"] = result[:,1]
+k["경도"] = result[:,0]
 
-# for col in df.columns :
-#     dtype_name = df[col].dtypes.name
-#     if dtype_name.startswith("int"):
-#         df[col] = pd.to_numeric(df[col], downcast = "unsigned")
-#     elif dtype_name.startswith("float"):
-#         df[col] = pd.to_numeric(df[col], downcast = "float")
-#     elif dtype_name == "bool":
-#         df[col] = df[col].astype("int8")
 
-# a= a.merge(c, on="시군구_코드", how="left")
+a = a.merge(k, on="엑스좌표_값", how="left")
 
-# a = a.dropna()
-# a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])    
+for col in df.columns :
+    dtype_name = df[col].dtypes.name
+    if dtype_name.startswith("int"):
+        df[col] = pd.to_numeric(df[col], downcast = "unsigned")
+    elif dtype_name.startswith("float"):
+        df[col] = pd.to_numeric(df[col], downcast = "float")
+    elif dtype_name == "bool":
+        df[col] = df[col].astype("int8")
+
+a= a.merge(c, on="시군구_코드", how="left")
+
+a = a.dropna()
+a = a.drop(columns=["엑스좌표_값","와이좌표_값_x","와이좌표_값_y"])    
 
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
@@ -309,7 +308,7 @@ st.pyplot()
 df_u["유동인구 비율"] = df_u["길단위 유동인구"] / df_u["총인구"] *100
 df_u["직장인구 비율"] = df_u["직장 인구"] / df_u["총인구"] *100
 df_u["주거인구 비율"] = df_u["주거 인구"] / df_u["총인구"] *100
-df_u["유동인구 비율"]
+
 
 df_per=df_u["유동인구 비율"].groupby(df_u["지역"]).mean().sort_values()
 colors= ['orange' if x == "서울시 전체" else 'blue' for x in df_per.index]
