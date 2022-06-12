@@ -201,13 +201,9 @@ for i in object_list:
 df_c['지역'] = df_c['지역'].str.strip()
 df_a = df_c[df_c['지역'] != '서울시 전체']
 
-st.sidebar.header("Information Menu")
-
-
-
-
-analysis_type =st.sidebar.selectbox("Select", ["점포 정보", "Multiple"])
-if analysis_type=="점포 정보":
+st.sidebar.header("Data of Seoul")
+analysis_type =st.sidebar.selectbox("Select", ["Store", "orrelation"])
+if analysis_type=="Store":
     st.subheader("전체 점포수")
 
     plt.figure(figsize=(12, 10))
@@ -272,9 +268,10 @@ for ax in axs:
         ax.text(w, i, f" {format(w, ',')} ", 
                 c=c, fontsize=13, va="center", ha=ha, 
                 fontweight="bold", alpha=0.5)
-fig.suptitle("구별 프랜차이즈, 일반 점포수 비교", fontweight="bold")
-fig.tight_layout()
-st.pyplot()
+if analysis_type=="Correlation":
+    fig.suptitle("구별 프랜차이즈, 일반 점포수 비교", fontweight="bold")
+    fig.tight_layout()
+    st.pyplot()
 
 
 df_u = pd.read_csv("https://raw.githubusercontent.com/Map-Jo/test/main/%EC%9D%B8%EA%B5%AC_%EC%A0%90%ED%8F%AC_%EA%B0%9C%ED%8F%90%EC%97%85_%ED%86%B5%ED%95%A9_2021%20(2).csv")
