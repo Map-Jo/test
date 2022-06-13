@@ -15,7 +15,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import json
 from PIL import Image
-img = Image.open("start")
+img = Image.open(start.png)
 st.image(img, width=400, caption="Image example: Cat")
 
 
